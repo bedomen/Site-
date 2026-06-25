@@ -230,7 +230,13 @@ export function App() {
 
       <main id="top">
         <section className="hero">
-          <img className="hero-image" src="/assets/hero-ecu.webp" alt="Открытый блок управления двигателем на рабочем столе" />
+          <img
+            className="hero-image"
+            src="/assets/hero-ecu.webp"
+            alt="Открытый блок управления двигателем на рабочем столе"
+            fetchPriority="high"
+            decoding="async"
+          />
           <div className="hero-shade" />
           <div className="hero-content page-width">
             <div className="hero-copy">
@@ -290,7 +296,12 @@ export function App() {
               <span><Check size={16} /> Предварительное согласование</span>
             </div>
           </div>
-          <img src="/assets/workshop.webp" alt="Мастерская по ремонту автомобильной электроники" />
+          <img
+            src="/assets/workshop.webp"
+            alt="Мастерская по ремонту автомобильной электроники"
+            loading="lazy"
+            decoding="async"
+          />
         </section>
 
         <section className="services section-light" id="services">
@@ -324,7 +335,7 @@ export function App() {
             <div className="live-work-grid">
               {liveWorks.map(({ src, title, text }) => (
                 <article className="live-work-card" key={title}>
-                  <img src={src} alt={title} loading="lazy" />
+                  <img src={src} alt={title} loading="lazy" decoding="async" />
                   <div className="live-work-caption">
                     <h3>{title}</h3>
                     <p>{text}</p>
@@ -394,7 +405,12 @@ export function App() {
         </section>
 
         <section className="contact" id="contacts">
-          <img src="/assets/soldering.webp" alt="Ремонт платы автомобильного блока управления" />
+          <img
+            src="/assets/soldering.webp"
+            alt="Ремонт платы автомобильного блока управления"
+            loading="lazy"
+            decoding="async"
+          />
           <div className="contact-shade" />
           <div className="page-width contact-inner">
             <div className="contact-copy">
