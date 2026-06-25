@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   ArrowRight,
+  Bank,
   BoxArrowDown,
   Check,
   Clock,
@@ -8,10 +9,12 @@ import {
   CloudArrowUp,
   Circuitry,
   Copy,
+  CreditCard,
   Cpu,
   IdentificationCard,
   List,
   MapPin,
+  Money,
   PaperPlaneTilt,
   Phone,
   ShieldCheck,
@@ -81,7 +84,7 @@ const prices = [
 const faqs = [
   [
     "Можно отправить блок из другого города?",
-    "Да. Принимаем блоки транспортной компанией. Перед отправкой обсудим симптомы, комплектацию и порядок диагностики.",
+    "Да. Принимаем через СДЭК, Ozon Доставку и Avito Доставку. Способ оплаты выбираем перед отправкой: расчётный счёт ИП, карта или наличные.",
   ],
   [
     "Можно приехать со своими запчастями?",
@@ -119,6 +122,18 @@ const liveWorks = [
     title: "Разборка блока",
     text: "Аккуратное вскрытие, диагностика и подготовка к восстановлению.",
   },
+];
+
+const deliveryMethods = [
+  { label: "СДЭК", text: "Приём и возврат блоков транспортной компанией." },
+  { label: "Ozon Доставка", text: "Удобный вариант отправки из пункта выдачи." },
+  { label: "Avito Доставка", text: "Для клиентов, которые начинают диалог через Avito." },
+];
+
+const paymentMethods = [
+  { icon: Bank, title: "Расчётный счёт ИП", text: "Безналичная оплата по реквизитам." },
+  { icon: CreditCard, title: "Картой", text: "Перевод или оплата картой после согласования." },
+  { icon: Money, title: "Наличными", text: "При личном обращении в мастерскую." },
 ];
 
 function ConsultationModal({ onClose }) {
@@ -241,7 +256,7 @@ export function App() {
           <div className="hero-content page-width">
             <div className="hero-copy">
               <p className="eyebrow">Автомобильная электроника · Новосибирск</p>
-              <h1>Ремонт блоков<br />управления ЭБУ</h1>
+              <h1>Ремонт электронных<br />блоков управления</h1>
               <p className="hero-lead">Восстановление автомобильной электроники</p>
               <ul className="hero-list">
                 <li><Check size={18} /> Опыт более 10 лет</li>
@@ -378,10 +393,50 @@ export function App() {
               <p>Возьмём ваше устройство в работу, даже если вы находитесь в другом городе.</p>
             </div>
             <ol className="steps">
-              <li><span>1</span><BoxArrowDown size={32} /><h3>Передайте блок</h3><p>Привезите в мастерскую или отправьте транспортной компанией.</p></li>
+              <li><span>1</span><BoxArrowDown size={32} /><h3>Передайте блок</h3><p>Привезите в мастерскую или отправьте через СДЭК, Ozon Доставку либо Avito Доставку.</p></li>
               <li><span>2</span><Circuitry size={32} /><h3>Диагностика и ремонт</h3><p>Находим неисправность, называем стоимость и приступаем после согласования.</p></li>
-              <li><span>3</span><ShieldCheck size={32} /><h3>Проверка и возврат</h3><p>Тестируем блок на стенде и возвращаем с рекомендациями по установке.</p></li>
+              <li><span>3</span><ShieldCheck size={32} /><h3>Проверка и возврат</h3><p>Тестируем блок на стенде и возвращаем удобным способом доставки.</p></li>
             </ol>
+          </div>
+        </section>
+
+        <section className="logistics section-light" aria-labelledby="logistics-title">
+          <div className="page-width section-pad logistics-layout">
+            <div className="logistics-title">
+              <p className="eyebrow">Дистанционная работа</p>
+              <h2 id="logistics-title">Доставка и оплата</h2>
+              <p>
+                Принимаем блоки из других городов. Способ отправки и оплаты фиксируем до начала
+                ремонта, чтобы всё было понятно по срокам и стоимости.
+              </p>
+            </div>
+            <div className="logistics-cards">
+              <article className="logistics-card">
+                <h3>Способы доставки</h3>
+                <div className="delivery-list">
+                  {deliveryMethods.map(({ label, text }) => (
+                    <div className="delivery-item" key={label}>
+                      <span className="delivery-logo">{label}</span>
+                      <p>{text}</p>
+                    </div>
+                  ))}
+                </div>
+              </article>
+              <article className="logistics-card">
+                <h3>Способы оплаты</h3>
+                <div className="payment-list">
+                  {paymentMethods.map(({ icon: Icon, title, text }) => (
+                    <div className="payment-item" key={title}>
+                      <Icon size={26} />
+                      <div>
+                        <strong>{title}</strong>
+                        <p>{text}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            </div>
           </div>
         </section>
 

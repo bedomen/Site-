@@ -381,6 +381,7 @@ h2 {
 .section-heading h2,
 .price-intro h2,
 .process h2,
+.logistics h2,
 .faq h2,
 .contact h2,
 .modal h2 {
@@ -393,6 +394,7 @@ h2 {
 .about-copy > p:not(.eyebrow),
 .price-intro > p,
 .process-title > p,
+.logistics-title > p,
 .modal-copy {
   color: #aaa69f;
   font-size: 14px;
@@ -632,6 +634,86 @@ h2 {
   color: #645f59;
   font-size: 12px;
   line-height: 1.7;
+}
+
+.logistics {
+  border-top: 1px solid #d6d0c8;
+}
+
+.logistics-layout {
+  display: grid;
+  grid-template-columns: 0.66fr 1.34fr;
+  gap: 75px;
+}
+
+.logistics-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.logistics-card {
+  min-height: 100%;
+  padding: 30px;
+  border: 1px solid #c9c3ba;
+  background: #eeeae3;
+}
+
+.logistics-card h3 {
+  margin-bottom: 24px;
+  font-size: 17px;
+}
+
+.delivery-list,
+.payment-list {
+  display: grid;
+  gap: 16px;
+}
+
+.delivery-item,
+.payment-item {
+  display: grid;
+  gap: 12px;
+}
+
+.delivery-item p,
+.payment-item p {
+  margin: 0;
+  color: #655f59;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.delivery-logo {
+  width: fit-content;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 14px;
+  border: 1px solid #908981;
+  color: #2e2b28;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  filter: grayscale(1);
+}
+
+.payment-item {
+  grid-template-columns: auto 1fr;
+  align-items: start;
+}
+
+.payment-item svg {
+  margin-top: 1px;
+  color: var(--copper-dark);
+}
+
+.payment-item strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
 }
 
 .faq {
@@ -933,6 +1015,7 @@ footer {
 
   .price-layout,
   .process-layout,
+  .logistics-layout,
   .faq-layout {
     grid-template-columns: 1fr;
   }
@@ -1050,6 +1133,18 @@ footer {
 
   .price-layout {
     gap: 48px;
+  }
+
+  .logistics-layout {
+    gap: 38px;
+  }
+
+  .logistics-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .logistics-card {
+    padding: 24px 20px;
   }
 
   .price-row {
