@@ -936,6 +936,66 @@ footer {
   margin-top: 12px;
 }
 
+.success-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+
+.success-actions .button {
+  margin-top: 0;
+}
+
+.contact-options {
+  display: grid;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.contact-option {
+  width: 100%;
+  min-height: 78px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid #4b4843;
+  background: #0b0c0c;
+  color: #f5f2ed;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.contact-option:hover,
+.contact-option:focus-visible {
+  border-color: var(--copper);
+  color: var(--copper);
+  transform: translateY(-1px);
+}
+
+.contact-option > svg:first-child {
+  color: var(--copper);
+}
+
+.contact-option span {
+  display: grid;
+  gap: 5px;
+}
+
+.contact-option strong {
+  font-size: 14px;
+}
+
+.contact-option small {
+  color: #aaa69f;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 @media (max-width: 1000px) {
   .site-header {
     padding-inline: 26px;

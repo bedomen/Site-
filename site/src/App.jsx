@@ -9,8 +9,10 @@ import {
   CloudArrowUp,
   Circuitry,
   Copy,
+  CopySimple,
   CreditCard,
   Cpu,
+  EnvelopeSimple,
   IdentificationCard,
   List,
   MapPin,
@@ -19,15 +21,18 @@ import {
   Phone,
   ShieldCheck,
   SlidersHorizontal,
+  TelegramLogo,
   Truck,
   Wrench,
   X,
 } from "@phosphor-icons/react";
 
-const avitoUrl =
-  "https://www.avito.ru/novosibirsk/predlozheniya_uslug/remont_blokov_upravleniya_ebu_7622586504";
 const phoneNumber = "+7 913 386-50-12";
 const phoneHref = "tel:+79133865012";
+const plainPhone = "79133865012";
+const email = "bedomen@narod.ru";
+const emailHref = `mailto:${email}`;
+const telegramHref = `tg://resolve?phone=${plainPhone}`;
 const address = "1-е Мочищенское шоссе, 3/1";
 const ogrnip = "325547600105130";
 
@@ -136,12 +141,97 @@ const paymentMethods = [
   { icon: Money, title: "Наличными", text: "При личном обращении в мастерскую." },
 ];
 
-function ConsultationModal({ onClose }) {
+function buildRequestMailto({ car, problem, contact }) {
+  const subject = "Заявка с сайта mydoip.ru";
+  const body = [
+    "Новая заявка с сайта mydoip.ru",
+    "",
+    `Марка и модель автомобиля: ${car}`,
+    "",
+    `Описание неисправности:`,
+    problem,
+    "",
+    `Контакт для связи: ${contact}`,
+    "",
+    "Источник: форма на сайте",
+  ].join("\n");
+
+  return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function ContactOptionsModal({ onClose }) {
+  const [copied, setCopied] = useState(false);
+
+  async function copyPhone() {
+    try {
+      await navigator.clipboard.writeText(phoneNumber);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  }
+
+  return (
+    <div className="modal-backdrop" role="presentation" onMouseDown={onClose}>
+      <section
+        className="modal contact-options-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-options-title"
+        onMouseDown={(event) => event.stopPropagation()}
+      >
+        <button className="icon-button modal-close" onClick={onClose} aria-label="Закрыть">
+          <X size={22} />
+        </button>
+        <p className="eyebrow">Связаться с мастером</p>
+        <h2 id="contact-options-title">Выберите удобный способ</h2>
+        <div className="contact-options">
+          <button className="contact-option" type="button" onClick={copyPhone}>
+            <ChatCircleText size={28} />
+            <span>
+              <strong>MAX</strong>
+              <small>{copied ? "Номер скопирован" : `Найдите по номеру ${phoneNumber}`}</small>
+            </span>
+            <CopySimple size={20} />
+          </button>
+          <a className="contact-option" href={telegramHref}>
+            <TelegramLogo size={28} />
+            <span>
+              <strong>Telegram</strong>
+              <small>Открыть Telegram по номеру {phoneNumber}</small>
+            </span>
+            <ArrowRight size={20} />
+          </a>
+          <a className="contact-option" href={emailHref}>
+            <EnvelopeSimple size={28} />
+            <span>
+              <strong>Mail</strong>
+              <small>{email}</small>
+            </span>
+            <ArrowRight size={20} />
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ConsultationModal({ onClose, onOpenContactOptions }) {
   const [sent, setSent] = useState(false);
+  const [mailHref, setMailHref] = useState(emailHref);
 
   function submit(event) {
     event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const nextMailHref = buildRequestMailto({
+      car: form.get("car")?.toString() ?? "",
+      problem: form.get("problem")?.toString() ?? "",
+      contact: form.get("contact")?.toString() ?? "",
+    });
+
+    setMailHref(nextMailHref);
     setSent(true);
+    window.location.href = nextMailHref;
   }
 
   return (
@@ -159,15 +249,20 @@ function ConsultationModal({ onClose }) {
         {sent ? (
           <div className="success-state">
             <span className="success-icon"><Check size={28} weight="bold" /></span>
-            <p className="eyebrow">Заявка подготовлена</p>
-            <h2 id="consultation-title">Продолжите диалог на Avito</h2>
+            <p className="eyebrow">Письмо подготовлено</p>
+            <h2 id="consultation-title">Отправьте заявку на почту</h2>
             <p>
-              Онлайн-отправку подключим после выбора канала связи. Сейчас можно сразу написать
-              мастеру в объявлении.
+              Мы открыли почтовое приложение с готовым письмом на {email}. Проверьте текст и
+              нажмите отправку в почте.
             </p>
-            <a className="button button-primary" href={avitoUrl} target="_blank" rel="noreferrer">
-              Написать на Avito <ArrowRight size={18} />
-            </a>
+            <div className="success-actions">
+              <a className="button button-primary" href={mailHref}>
+                Открыть письмо <EnvelopeSimple size={18} />
+              </a>
+              <button className="button button-outline" onClick={onOpenContactOptions}>
+                Написать <ArrowRight size={18} />
+              </button>
+            </div>
           </div>
         ) : (
           <>
@@ -192,10 +287,10 @@ function ConsultationModal({ onClose }) {
               </label>
               <label>
                 Как с вами связаться
-                <input name="contact" placeholder="Телефон, Max или Avito" required />
+                <input name="contact" placeholder="Телефон, Max, Telegram или email" required />
               </label>
               <button className="button button-primary button-wide" type="submit">
-                Подготовить заявку <PaperPlaneTilt size={18} />
+                Отправить на почту <PaperPlaneTilt size={18} />
               </button>
             </form>
           </>
@@ -207,6 +302,7 @@ function ConsultationModal({ onClose }) {
 
 export function App() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [contactOptionsOpen, setContactOptionsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showAllPrices, setShowAllPrices] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
@@ -214,6 +310,11 @@ export function App() {
   const openConsultation = () => {
     setMenuOpen(false);
     setModalOpen(true);
+  };
+
+  const openContactOptions = () => {
+    setMenuOpen(false);
+    setContactOptionsOpen(true);
   };
 
   return (
@@ -479,9 +580,9 @@ export function App() {
                 <a className="button button-outline" href={phoneHref}>
                   Позвонить
                 </a>
-                <a className="button button-outline" href={avitoUrl} target="_blank" rel="noreferrer">
-                  Написать на Avito
-                </a>
+                <button className="button button-outline" onClick={openContactOptions}>
+                  Написать
+                </button>
               </div>
               <div className="contact-meta">
                 <div><Phone size={22} /><span>Телефон<strong>{phoneNumber}</strong></span></div>
@@ -505,7 +606,16 @@ export function App() {
         </div>
       </footer>
 
-      {modalOpen && <ConsultationModal onClose={() => setModalOpen(false)} />}
+      {modalOpen && (
+        <ConsultationModal
+          onClose={() => setModalOpen(false)}
+          onOpenContactOptions={() => {
+            setModalOpen(false);
+            setContactOptionsOpen(true);
+          }}
+        />
+      )}
+      {contactOptionsOpen && <ContactOptionsModal onClose={() => setContactOptionsOpen(false)} />}
     </>
   );
 }
