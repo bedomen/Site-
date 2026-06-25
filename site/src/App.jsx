@@ -93,6 +93,39 @@ const faqs = [
   ],
 ];
 
+const liveWorks = [
+  {
+    src: "/assets/live-works/workbench-diagnostics.jpg",
+    title: "Диагностика приборных панелей",
+    text: "Проверка на рабочем месте с измерительным оборудованием.",
+  },
+  {
+    src: "/assets/live-works/land-rover-module.jpg",
+    title: "Силовой модуль Land Rover",
+    text: "Разборка и оценка состояния платы перед ремонтом.",
+  },
+  {
+    src: "/assets/live-works/ecu-board.jpg",
+    title: "Плата электронного блока",
+    text: "Осмотр компонентов, дорожек и зон питания под увеличением.",
+  },
+  {
+    src: "/assets/live-works/microsoldering.jpg",
+    title: "Микропайка компонентов",
+    text: "Работа с мелкими элементами и восстановлением посадочных мест.",
+  },
+  {
+    src: "/assets/live-works/instrument-clusters.jpg",
+    title: "Партия щитков приборов",
+    text: "Ремонт, проверка индикации и восстановление электроники.",
+  },
+  {
+    src: "/assets/live-works/module-disassembly.jpg",
+    title: "Разборка блока",
+    text: "Аккуратное вскрытие, диагностика и подготовка к восстановлению.",
+  },
+];
+
 function ConsultationModal({ onClose }) {
   const [sent, setSent] = useState(false);
 
@@ -182,6 +215,7 @@ export function App() {
         </a>
         <nav className={menuOpen ? "nav nav-open" : "nav"} aria-label="Основная навигация">
           <a href="#services" onClick={() => setMenuOpen(false)}>Услуги</a>
+          <a href="#works" onClick={() => setMenuOpen(false)}>Работы</a>
           <a href="#prices" onClick={() => setMenuOpen(false)}>Прайс-лист</a>
           <a href="#process" onClick={() => setMenuOpen(false)}>Как работаем</a>
           <a href="#about" onClick={() => setMenuOpen(false)}>О нас</a>
@@ -276,6 +310,30 @@ export function App() {
                 <article className="service-item" key={title}>
                   <Icon size={30} />
                   <div><h3>{title}</h3><p>{text}</p></div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="live-works section-dark" id="works">
+          <div className="page-width section-pad">
+            <p className="eyebrow">Живые фото</p>
+            <div className="section-heading">
+              <h2>Работы из мастерской</h2>
+              <p>
+                Реальные блоки, платы и приборные панели в процессе диагностики и ремонта.
+                Без постановочных кадров — только то, с чем работаем каждый день.
+              </p>
+            </div>
+            <div className="live-work-grid">
+              {liveWorks.map(({ src, title, text }) => (
+                <article className="live-work-card" key={title}>
+                  <img src={src} alt={title} loading="lazy" />
+                  <div className="live-work-caption">
+                    <h3>{title}</h3>
+                    <p>{text}</p>
+                  </div>
                 </article>
               ))}
             </div>

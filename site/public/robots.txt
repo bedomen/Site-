@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Host: https://mydoip.ru
+Sitemap: https://mydoip.ru/sitemap.xml
