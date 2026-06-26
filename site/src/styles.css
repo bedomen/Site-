@@ -877,6 +877,8 @@ footer {
   line-height: 0.95;
   letter-spacing: -0.05em;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .legal-card {
@@ -1370,6 +1372,12 @@ footer {
 
   .legal-page {
     padding-top: 72px;
+  }
+
+  .legal-layout h1 {
+    font-size: clamp(30px, 9vw, 44px);
+    line-height: 1;
+    letter-spacing: -0.045em;
   }
 
   .legal-card {
