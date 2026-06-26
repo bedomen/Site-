@@ -271,6 +271,9 @@ function ConsultationModal({ onClose, onOpenContactOptions }) {
             <p className="modal-copy">
               Чем точнее симптомы, тем быстрее сможем оценить возможную причину и порядок работ.
             </p>
+            <p className="security-note">
+              Мы не принимаем оплату на сайте и не запрашиваем банковские данные.
+            </p>
             <form onSubmit={submit}>
               <label>
                 Марка и модель автомобиля
@@ -300,12 +303,96 @@ function ConsultationModal({ onClose, onOpenContactOptions }) {
   );
 }
 
+function LegalPage({ page }) {
+  const isPrivacy = page === "privacy";
+
+  return (
+    <main className="legal-page">
+      <section className="section-light">
+        <div className="page-width section-pad legal-layout">
+          <p className="eyebrow">{isPrivacy ? "Документы" : "Информация об исполнителе"}</p>
+          <h1>{isPrivacy ? "Политика конфиденциальности" : "Реквизиты"}</h1>
+          {isPrivacy ? (
+            <div className="legal-card">
+              <p>
+                Сайт mydoip.ru используется для предварительной консультации по ремонту
+                автомобильной электроники и связи с мастером.
+              </p>
+              <h2>Какие данные можно передать через сайт</h2>
+              <p>
+                В форме заявки пользователь может указать марку автомобиля, описание неисправности
+                и контакт для связи: телефон, мессенджер или email. Эти данные нужны только для
+                ответа на обращение и предварительной оценки работ.
+              </p>
+              <h2>Оплата и банковские данные</h2>
+              <p>
+                Мы не принимаем оплату на сайте и не запрашиваем банковские данные, номера карт,
+                пароли, коды из SMS или данные интернет-банка.
+              </p>
+              <h2>Передача данных третьим лицам</h2>
+              <p>
+                Контактные данные не публикуются на сайте и не передаются третьим лицам, кроме
+                случаев, когда это необходимо для выполнения требований закона.
+              </p>
+              <h2>Связь по вопросам данных</h2>
+              <p>
+                По вопросам обработки данных можно написать на <a href={emailHref}>{email}</a> или
+                позвонить по номеру <a href={phoneHref}>{phoneNumber}</a>.
+              </p>
+              <p className="legal-muted">Дата публикации: 26 июня 2026 г.</p>
+            </div>
+          ) : (
+            <div className="legal-card requisites-card">
+              <dl>
+                <div>
+                  <dt>Наименование</dt>
+                  <dd>Индивидуальный предприниматель</dd>
+                </div>
+                <div>
+                  <dt>ОГРНИП</dt>
+                  <dd>{ogrnip}</dd>
+                </div>
+                <div>
+                  <dt>Телефон</dt>
+                  <dd><a href={phoneHref}>{phoneNumber}</a></dd>
+                </div>
+                <div>
+                  <dt>Email</dt>
+                  <dd><a href={emailHref}>{email}</a></dd>
+                </div>
+                <div>
+                  <dt>Адрес мастерской</dt>
+                  <dd>{address}, Новосибирск</dd>
+                </div>
+                <div>
+                  <dt>Оплата</dt>
+                  <dd>Расчётный счёт ИП, карта или наличные после согласования работ.</dd>
+                </div>
+              </dl>
+              <p className="security-note legal-note">
+                Мы не принимаем оплату на сайте и не запрашиваем банковские данные.
+              </p>
+            </div>
+          )}
+          <a className="button button-outline legal-back" href="/">
+            Вернуться на главную <ArrowRight size={18} />
+          </a>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 export function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [contactOptionsOpen, setContactOptionsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showAllPrices, setShowAllPrices] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
+  const currentPath = window.location.pathname;
+  const isPrivacyPage = currentPath === "/privacy";
+  const isRequisitesPage = currentPath === "/requisites";
+  const isLegalPage = isPrivacyPage || isRequisitesPage;
 
   const openConsultation = () => {
     setMenuOpen(false);
@@ -320,17 +407,17 @@ export function App() {
   return (
     <>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="ЭБУ Сервис — на главную">
+        <a className="brand" href="/" aria-label="ЭБУ Сервис — на главную">
           <strong>ЭБУ СЕРВИС</strong>
           <span>Новосибирск</span>
         </a>
         <nav className={menuOpen ? "nav nav-open" : "nav"} aria-label="Основная навигация">
-          <a href="#services" onClick={() => setMenuOpen(false)}>Услуги</a>
-          <a href="#works" onClick={() => setMenuOpen(false)}>Работы</a>
-          <a href="#prices" onClick={() => setMenuOpen(false)}>Прайс-лист</a>
-          <a href="#process" onClick={() => setMenuOpen(false)}>Как работаем</a>
-          <a href="#about" onClick={() => setMenuOpen(false)}>О нас</a>
-          <a href="#contacts" onClick={() => setMenuOpen(false)}>Контакты</a>
+          <a href="/#services" onClick={() => setMenuOpen(false)}>Услуги</a>
+          <a href="/#works" onClick={() => setMenuOpen(false)}>Работы</a>
+          <a href="/#prices" onClick={() => setMenuOpen(false)}>Прайс-лист</a>
+          <a href="/#process" onClick={() => setMenuOpen(false)}>Как работаем</a>
+          <a href="/#about" onClick={() => setMenuOpen(false)}>О нас</a>
+          <a href="/#contacts" onClick={() => setMenuOpen(false)}>Контакты</a>
           <button className="button button-primary nav-cta" onClick={openConsultation}>
             Описать неисправность <ArrowRight size={17} />
           </button>
@@ -344,6 +431,9 @@ export function App() {
         </button>
       </header>
 
+      {isLegalPage ? (
+        <LegalPage page={isPrivacyPage ? "privacy" : "requisites"} />
+      ) : (
       <main id="top">
         <section className="hero">
           <img
@@ -597,11 +687,14 @@ export function App() {
           </div>
         </section>
       </main>
+      )}
 
       <footer>
         <div className="page-width footer-inner">
           <span>© ЭБУ СЕРВИС, Новосибирск · ОГРНИП {ogrnip}</span>
           <a href={phoneHref}>{phoneNumber}</a>
+          <a href="/requisites">Реквизиты</a>
+          <a href="/privacy">Политика конфиденциальности</a>
           <a href="#top">Наверх</a>
         </div>
       </footer>

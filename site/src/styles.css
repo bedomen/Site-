@@ -849,6 +849,108 @@ footer {
   color: var(--copper);
 }
 
+.security-note {
+  margin: 18px 0 0;
+  padding: 13px 15px;
+  border: 1px solid rgba(205, 143, 82, 0.32);
+  background: rgba(205, 143, 82, 0.08);
+  color: #d7c8b8;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.legal-page {
+  padding-top: 74px;
+  background: var(--paper);
+  color: #161616;
+}
+
+.legal-layout {
+  min-height: calc(100vh - 140px);
+}
+
+.legal-layout h1 {
+  max-width: 860px;
+  margin: 12px 0 28px;
+  color: #171717;
+  font-size: clamp(38px, 7vw, 78px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.legal-card {
+  max-width: 880px;
+  display: grid;
+  gap: 18px;
+  padding: clamp(24px, 5vw, 46px);
+  border: 1px solid #d8d0c5;
+  background: #f6f1e9;
+}
+
+.legal-card h2 {
+  margin-top: 8px;
+  color: #171717;
+  font-size: clamp(22px, 4vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.legal-card p {
+  max-width: 760px;
+  color: #5d574f;
+  line-height: 1.75;
+}
+
+.legal-card a {
+  color: #171717;
+  text-decoration: underline;
+  text-decoration-color: var(--copper);
+  text-underline-offset: 4px;
+}
+
+.legal-muted {
+  color: #8d857a !important;
+  font-size: 13px;
+}
+
+.requisites-card dl {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+
+.requisites-card dl > div {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.34fr) 1fr;
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid #ded6cc;
+}
+
+.requisites-card dt {
+  color: #8d857a;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.requisites-card dd {
+  margin: 0;
+  color: #171717;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.legal-note {
+  margin-top: 24px;
+  color: #6f5439;
+}
+
+.legal-back {
+  margin-top: 28px;
+}
+
 .modal-backdrop {
   position: fixed;
   z-index: 100;
@@ -1032,6 +1134,12 @@ footer {
   .nav-cta {
     width: 100%;
     margin: 18px 0 0;
+  }
+
+  .footer-inner {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-block: 18px;
   }
 
   .hero {
@@ -1258,6 +1366,19 @@ footer {
 
   .modal {
     padding: 40px 22px 26px;
+  }
+
+  .legal-page {
+    padding-top: 72px;
+  }
+
+  .legal-card {
+    padding: 24px 20px;
+  }
+
+  .requisites-card dl > div {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
 
