@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ЭБУ Сервис">
+  <rect width="64" height="64" rx="14" fill="#0c0d0d"/>
+  <rect x="8" y="8" width="48" height="48" rx="10" fill="#121414" stroke="#c98f52" stroke-width="3"/>
+  <rect x="20" y="18" width="24" height="28" rx="4" fill="#f4f0e8"/>
+  <path d="M16 25h8M16 32h8M16 39h8M40 25h8M40 32h8M40 39h8" stroke="#c98f52" stroke-width="3" stroke-linecap="round"/>
+  <path d="M27 25h10M27 32h10M27 39h7" stroke="#0c0d0d" stroke-width="3" stroke-linecap="round"/>
+</svg>
